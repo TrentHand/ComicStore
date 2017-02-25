@@ -1,0 +1,19 @@
+{# this is code that every template will use #}
+{# connecting this to our static files #}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comic Store!</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
+</head>
+<body>
+{# naming my blocks to determine where items are placed on my page #}
+    {% block content %}
+    {% endblock %}
+
+    {% block 2 %}
+    {% endblock %}
+</body>
+</html>
