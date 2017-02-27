@@ -2,3 +2,6 @@
 lib/
 include/
 bin/
+ComicStore/__pycache__/
+contact/__pycache__/
+profiles/__pycache__/
