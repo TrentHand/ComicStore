@@ -15,6 +15,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'developertrent@gmail.com'
+EMAIL_HOST_PASSWORD = 'birdbrain'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -38,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'profiles',
+    'contact',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +134,5 @@ if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(os.path.dirname(BASE_DIR),'static', 'static'),
         )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
