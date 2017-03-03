@@ -62,7 +62,21 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src='{% static "javascript/bootstrap.min.js" %}'></script>
     <script src='{% static "javascript/docs.min.js" %}'></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    {% block script %}
+
+    {% endblock %}
+<!-- this is loading the jquery we build on checkout/templates/checkout.html -->
+    <script>
+    $(document).ready(function() {
+        {% block jquery %}
+        {% endblock %}
+    });
+    </script>
   </body>
+    
 </html>

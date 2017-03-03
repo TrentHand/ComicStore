@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from ComicStore.keys import pub_key_stripe, secret_key_stripe
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'checkout',
-    'stripe',
+    'stripe', 
 ]
 
 MIDDLEWARE = [
@@ -182,3 +183,12 @@ ACCOUNT_PASSWORD_MIN_LENGTH = 6
 ACCOUNT_LOGON_ON_EMAIL_CONFIRMATION = True
 
 
+#stripe stuff
+
+# test keys
+STRIPE_PUBLISHABLE_KEY = pub_key_stripe
+STRIPE_SECRET_KEY = secret_key_stripe
+
+# live keys
+# STRIPE_PUBLISHABLE_KEY = ''
+# STRIPE_SECRET_KEY = ''

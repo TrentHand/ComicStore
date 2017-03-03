@@ -2,6 +2,6 @@
 lib/
 include/
 bin/
-ComicStore/__pycache__/
-contact/__pycache__/
-profiles/__pycache__/
+__pycache__
+db.sqlite3
+keys.py
