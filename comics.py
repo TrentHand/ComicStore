@@ -1,7 +1,7 @@
 import os
 import json
 
-
+#this is looping through all the comics in comics.json, creating each one as an object called complete_comic and appending them into a list called all_comics.
 def parseComics():
     all_comics = []
     complete_comic = {}
