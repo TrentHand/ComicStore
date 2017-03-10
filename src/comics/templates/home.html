@@ -1,0 +1,41 @@
+{# pulling the styling from base.html #}
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block styles %}
+<style>
+.jumbotron {
+    text-align: center;
+}
+</style>
+{% endblock %}
+
+
+{% block jumbotron %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <h1>Comic Book Store!</h1>
+  <p>Welcome to my Django E-commerce comic store.  Here, you can pretend to purchase and download your favorite Marvel comics.  Simple click on any "Add to cart" button below a comic and when finished, select the "View Cart" option from the "Account" dropdown.</p>
+  <p>Please note: none of these comics are actually for purchase, this is just a project designed for my software school completion.</p>
+</div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <div>
+          {% for comic in all_comics %}
+            <p>{{comic.0}}</p>
+            <p>{{comic.1}}</p>
+            <p>{{comic.2}}</p>
+            <p>{{comic.3}}</p>
+            <p>{{comic.4}}</p>
+            <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+          {% endfor %}
+          </div>
+        </div>
+
+    </div>
+{% endblock %}

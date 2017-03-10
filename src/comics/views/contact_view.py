@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import contactForm
+from comics.forms import contact_form
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -7,7 +7,7 @@ from django.conf import settings
 #this is my contact page, or where the customer will be able to reach out to the store.
 def contact(request):
     title = 'Contact'
-    form = contactForm(request.POST or None)
+    form = contact_form.contactForm(request.POST or None)
     confirm_message = None
 #this if statement will print the request in the terminal if the request is valid
     if form.is_valid():

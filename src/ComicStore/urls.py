@@ -18,17 +18,15 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from profiles import views as profiles_views
-from contact import views as contact_views
-from checkout import views as checkout_views
+from comics.views import checkout_view, contact_view, profile_view, comic_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', profiles_views.home, name='home'),
-    url(r'^about/$', profiles_views.about, name='about'),
-    url(r'^profile/$', profiles_views.userProfile, name='profile'),
-    url(r'^checkout/$', checkout_views.checkout, name='checkout'),
-    url(r'^contact/$', contact_views.contact, name='contact'),
+    url(r'^$', comic_view.parseComics, name='home'),
+    url(r'^about/$', profile_view.about, name='about'),
+    url(r'^profile/$', profile_view.userProfile, name='profile'),
+    url(r'^checkout/$', checkout_view.checkout, name='checkout'),
+    url(r'^contact/$', contact_view.contact, name='contact'),
     url(r'^accounts/', include('allauth.urls')),
 ]
 
