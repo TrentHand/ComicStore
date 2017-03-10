@@ -50,10 +50,3 @@ user_signed_up.connect(stripeCallback)
 user_signed_up.connect(profileCallback)
 
 
-# class comicObject(models.Model):
-#     title = models.CharField(max_length=120)
-#     issue_number = models.CharField(max_length=10)
-#     description = models.TextField(max_length=400)
-#     pub_date = models.DateTimeField()
-#     price = models.DecimalField(max_digits=6, decimal_places=2)
-#     cover_image = models.ImageField()

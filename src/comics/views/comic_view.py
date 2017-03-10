@@ -12,7 +12,7 @@ def parseComics(request):
     complete_comic = {}
 
     try:
-        with open("comics.json", "r") as files:
+        with open("../comics.json", "r") as files:
             comic_data = json.load(files)
             comics = comic_data["results"]
             for comic in comics:
@@ -27,12 +27,11 @@ def parseComics(request):
                 print(complete_comic)
 
     except: 
-        pass 
+        print("HAPPPPPPYYPYPPPYY") 
 
-    return render(request, '/src/profiles/templates/home.html', {'all_comics':all_comics})
+    return render(request, '../templates/home.html', {'all_comics':all_comics})
 
 
-parseComics()
 
 
 
