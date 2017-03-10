@@ -22,20 +22,22 @@
 
 
 {% block content %}
+  <div class="container">
     <div class="row">
-        <div class="col-md-4">
           <h2>Heading</h2>
-          <div>
+          <!-- <div> -->
           {% for comic in all_comics %}
-            <p>{{comic.comic_id}}</p>
-            <p>{{comic.comic_title}}</p>
-            <p>{{comic.description}}</p>
-            <p>${{comic.price}}</p>
-            <img src="{{comic.comic_cover}}" class="thumbimg">
-            <p><a class="btn btn-default" href="#" role="button">ADD TO CART »</a></p>
+            <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-6 col-xs-12">
+              <p>{{comic.comic_id}}</p>
+              <img src="{{comic.comic_cover}}" class="thumbimg">
+              <p>{{comic.comic_title}}</p>
+              <p>{{comic.description}}</p>
+              <p>${{comic.price}}</p>
+              <p><a class="btn btn-default" href="#" role="button">ADD TO CART »</a></p>
+            </div>
           {% endfor %}
-          </div>
-        </div>
+          <!-- </div> -->
 
     </div>
+  </div>
 {% endblock %}

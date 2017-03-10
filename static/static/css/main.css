@@ -18,3 +18,12 @@
     height: 250px;
     width: 180px;
 }
+
+.comicCard {
+    padding-left: 2em;
+    margin-bottom: 3em;
+    display: inline-block;
+    height: 345px;
+    overflow: scroll;
+    background-color: white; 
+}
