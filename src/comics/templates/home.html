@@ -27,12 +27,12 @@
           <h2>Heading</h2>
           <div>
           {% for comic in all_comics %}
-            <p>{{comic.0}}</p>
-            <p>{{comic.1}}</p>
-            <p>{{comic.2}}</p>
-            <p>{{comic.3}}</p>
-            <p>{{comic.4}}</p>
-            <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+            <p>{{comic.comic_id}}</p>
+            <p>{{comic.comic_title}}</p>
+            <p>{{comic.description}}</p>
+            <p>${{comic.price}}</p>
+            <img src="{{comic.comic_cover}}" class="thumbimg">
+            <p><a class="btn btn-default" href="#" role="button">ADD TO CART »</a></p>
           {% endfor %}
           </div>
         </div>

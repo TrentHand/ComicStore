@@ -1,8 +1,13 @@
 import os
 import json
+from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
 #this is looping through all the comics in comics.json, creating each one as an object called complete_comic and appending them into a list called all_comics.
-def parseComics():
+class ComicsView(TemplateView):
+    template_name = '/src/profiles/templates/home.html'
+
+def parseComics(request):
     all_comics = []
     complete_comic = {}
 
@@ -10,7 +15,6 @@ def parseComics():
         with open("comics.json", "r") as files:
             comic_data = json.load(files)
             comics = comic_data["results"]
-            # print(comics)
             for comic in comics:
                 complete_comic = {
                     'comic_id':comic["id"],
@@ -20,9 +24,13 @@ def parseComics():
                     'comic_cover':comic["thumbnail"]["path"] + "." + comic["thumbnail"]["extension"]
                 }
                 all_comics.append(complete_comic)
+                print(complete_comic)
 
     except: 
         pass 
+
+    return render(request, '/src/profiles/templates/home.html', {'all_comics':all_comics})
+
 
 parseComics()
 
