@@ -9,6 +9,10 @@ body {
   margin-bottom: 20px;
 }
 
+.theme-showcase {
+  background-image: url("/static/static/img/marvel_background_2.jpg");
+}
+
 .theme-showcase > p > .btn {
   margin: 5px 0;
 }
