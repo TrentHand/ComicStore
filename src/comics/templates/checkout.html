@@ -51,7 +51,7 @@ $(function() {
           <h2 class="main-text">Comics: </h2>
           <!-- <div> -->
           {% for comic in cart_comics %}
-            <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-6 col-xs-12">
+            <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
               <p>{{comic.comic_id}}</p>
               <img src="{{comic.comic_cover}}" class="thumbimg">
               <p>{{comic.comic_title}}</p>
@@ -66,7 +66,7 @@ $(function() {
 
 <div class='row'>
   <div class='col-sm-6 col-sm-offset-3'>
-    <form class='form' action="" method="POST" id="payment-form"> {% csrf_token %}
+    <form class='form' action="{% url 'checkout' %}" method="POST" id="payment-form"> {% csrf_token %}
       <span class="payment-errors"></span>
 
       <div class="form-row">

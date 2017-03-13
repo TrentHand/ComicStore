@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 #this is looping through all the comics in comics.json, creating each one as an object called complete_comic and appending them into a list called all_comics.
@@ -47,11 +48,19 @@ def add_to_cart(request, comic_id):
         #     print("ERRRROOOROOROORORORO")
     # print('cart_comics', cart_comics)
 
+    context = {'cart_comics':cart_comics}
+    template = 'checkout.html'
+    return HttpResponseRedirect('/checkout/')
+
+@login_required 
+def checkout(request):
+
     publishKey = settings.STRIPE_PUBLISHABLE_KEY
     customer_id = request.user.userstripe.stripe_id
     if request.method == 'POST':
         # Token is created using Stripe.js or Checkout!
         # Get the payment token submitted by the form:
+        print("!!!!!!!STRIPETOKEN: ", stripeToken)
         token = request.POST['stripeToken'] # Using Flask
         try:
         # Charge the user's card:

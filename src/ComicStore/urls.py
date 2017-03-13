@@ -25,8 +25,9 @@ urlpatterns = [
     url(r'^$', comic_view.parseComics, name='home'),
     url(r'^about/$', profile_view.about, name='about'),
     url(r'^profile/$', profile_view.userProfile, name='profile'),
-    url(r'^checkout/$', checkout_view.checkout, name='checkout'),
+    # url(r'^checkout/$', checkout_view.checkout, name='checkout'),
     url(r'^add_comic/(?P<comic_id>\d+)/', comic_view.add_to_cart, name='add_comic'),
+    url(r'^checkout/', comic_view.checkout, name='checkout'),
     url(r'^contact/$', contact_view.contact, name='contact'),
     url(r'^accounts/', include('allauth.urls')),
 ]
