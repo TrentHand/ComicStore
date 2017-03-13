@@ -6,6 +6,7 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
+
 @login_required 
 def checkout(request):
     publishKey = settings.STRIPE_PUBLISHABLE_KEY

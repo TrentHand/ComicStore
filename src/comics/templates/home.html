@@ -33,7 +33,7 @@
               <p>{{comic.comic_title}}</p>
               <p>{{comic.description}}</p>
               <p>${{comic.price}}</p>
-              <p><a class="btn btn-default" href="#" role="button">ADD TO CART »</a></p>
+              <p><a class="btn btn-default" href="{% url 'add_comic' comic.comic_id %}" role="button">ADD TO CART »</a></p>
             </div>
           {% endfor %}
           <!-- </div> -->
