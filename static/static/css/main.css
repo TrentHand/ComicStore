@@ -27,3 +27,11 @@
     overflow: scroll;
     background-color: white; 
 }
+
+.main-text {
+    color: white;
+}
+
+.main-text a {
+    color: red;
+}
