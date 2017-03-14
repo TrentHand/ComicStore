@@ -64,7 +64,7 @@ $(function() {
 <div class='row'>
   <div class='col-sm-6 col-sm-offset-3'>
   <h3 class="main-text">Total Due:  ${{ total_price }} </h3>
-    <form class='form' action="{% url 'checkout' %}" method="POST" id="payment-form"> {% csrf_token %}
+    <form class='form' action="{% url 'success' %}" method="POST" id="payment-form"> {% csrf_token %}
       <span class="payment-errors"></span>
       <p class="main-text">This is prepopulated.  Please don't enter any card information.</p>
       <div class="form-row">
@@ -91,7 +91,7 @@ $(function() {
       </div>
 
 
-      <input class='btn btn-success' type="submit" class="submit" value="Submit Payment"href="{% url 'checkout' %}">
+      <input class='btn btn-success' type="submit" class="submit" value="Submit Payment"href="{% url 'success' %}">
     </form>
   </div>
 </div> 

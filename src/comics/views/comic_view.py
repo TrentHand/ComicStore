@@ -86,8 +86,8 @@ def checkout(request):
     if request.method == 'POST':
         # Token is created using Stripe.js or Checkout!
         # Get the payment token submitted by the form:
-        print("!!!!!!!STRIPETOKEN: ", stripeToken)
         token = request.POST['stripeToken'] # Using Flask
+        # print("!!!!!!!STRIPETOKEN: ", stripeToken)
         try:
         # Charge the user's card:
             customer = stripe.Customer.retrieve(customer_id)
@@ -105,7 +105,11 @@ def checkout(request):
     template = 'checkout.html'
     return render(request, template, context)
 
-
+#this is my about page, or where the customer will learn about the company
+def success(request):
+    context = {}
+    template = 'success.html'
+    return render(request, template, context)
 
 
 

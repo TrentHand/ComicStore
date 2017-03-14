@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^remove_comic/(?P<comic_id>\d+)/', comic_view.remove_from_cart, name='remove_comic'),
     url(r'^checkout/', comic_view.checkout, name='checkout'),
     url(r'^contact/$', contact_view.contact, name='contact'),
+    url(r'^success/$', comic_view.success, name='success'),
     url(r'^accounts/', include('allauth.urls')),
 ]
 
