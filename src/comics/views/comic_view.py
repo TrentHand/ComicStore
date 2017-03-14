@@ -15,6 +15,8 @@ class ComicsView(TemplateView):
 all_comics = []
 complete_comic = {}
 cart_comics = []
+total_price = 0
+
 
 def parseComics(request):
 
@@ -27,7 +29,7 @@ def parseComics(request):
                     'comic_id':comic["id"],
                     'comic_title':comic["title"],
                     'description':comic["description"],
-                    'price':comic["prices"][0]["price"],
+                    'price':round(comic["prices"][0]["price"],2),
                     'comic_cover':comic["thumbnail"]["path"] + "." + comic["thumbnail"]["extension"]
                 }
                 all_comics.append(complete_comic)
@@ -42,15 +44,20 @@ def add_to_cart(request, comic_id):
     for comic in all_comics:
         # print("COMIC: ", comic)
         if int(comic['comic_id']) == int(comic_id):
+            total_price = calculate_price(request, comic['price'])
             cart_comics.append(comic)
             break
-        # else:
-        #     print("ERRRROOOROOROORORORO")
-    # print('cart_comics', cart_comics)
 
-    context = {'cart_comics':cart_comics}
+    context = {'cart_comics':cart_comics, 'total_price':total_price}
     template = 'checkout.html'
     return HttpResponseRedirect('/checkout/')
+
+def calculate_price(request, comic_price):
+    global total_price
+    print("!!!!!!COMIC PRICE", comic_price)
+    total_price += comic_price
+    print("!!!!TOTAL PRICE", total_price)
+    return total_price
 
 @login_required 
 def checkout(request):
@@ -75,10 +82,9 @@ def checkout(request):
         except stripe.error.CardError as e:
             #The card has been declined
             pass
-    context = {'publishKey':publishKey, 'cart_comics':cart_comics}
+    context = {'publishKey':publishKey, 'cart_comics':cart_comics,'total_price':total_price}
     template = 'checkout.html'
     return render(request, template, context)
-
 
 
 

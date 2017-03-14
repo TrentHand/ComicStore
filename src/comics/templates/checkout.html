@@ -28,6 +28,7 @@
 </script>
 {% endblock %}
 
+
 {% block jquery %}
 $(function() {
   var $form = $('#payment-form');
@@ -45,11 +46,9 @@ $(function() {
 {% endblock %}
 
 {% block content %}
-<p><a href="{% url 'home' %}">Add more comics!</a></p>
 
     <div class="row">
-          <h2 class="main-text">Comics: </h2>
-          <!-- <div> -->
+          <h2 class="main-text"><a href="{% url 'home' %}">Add more comics!</a> </h2>
           {% for comic in cart_comics %}
             <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
               <p>{{comic.comic_id}}</p>
@@ -57,38 +56,37 @@ $(function() {
               <p>{{comic.comic_title}}</p>
               <p>{{comic.description}}</p>
               <p>${{comic.price}}</p>
-              {# <p><a class="btn btn-default" href="{% url 'add_comic' comic.comic_id %}" role="button">ADD TO CART »</a></p> #}
+
             </div>
           {% endfor %}
-          <!-- </div> -->
-
     </div>
 
 <div class='row'>
   <div class='col-sm-6 col-sm-offset-3'>
+  <h3 class="main-text">Total Due:  ${{ total_price }} </h3>
     <form class='form' action="{% url 'checkout' %}" method="POST" id="payment-form"> {% csrf_token %}
       <span class="payment-errors"></span>
-
+      <p class="main-text">This is prepopulated.  Please don't enter any card information.</p>
       <div class="form-row">
         <label>
           <span class="main-text">Card Number</span>
-          <input class='form-control' type="text" size="20" data-stripe="number">
+          <input class='form-control' type="text" size="20" data-stripe="number" value="4242424242424242">
         </label>
       </div>
 
       <div class="form-row">
         <label>
           <span class="main-text">Expiration (MM/YY)</span>
-          <input type="text" size="2" data-stripe="exp_month">
+          <input type="text" size="2" data-stripe="exp_month" value="12">
         </label>
         <span> / </span>
-        <input type="text" size="2" data-stripe="exp_year">
+        <input type="text" size="2" data-stripe="exp_year" value="22">
       </div>
 
       <div class="form-row">
         <label>
           <span class="main-text">CVC</span>
-          <input type="text" size="4" data-stripe="cvc">
+          <input type="text" size="4" data-stripe="cvc" value="333">
         </label>
       </div>
 
