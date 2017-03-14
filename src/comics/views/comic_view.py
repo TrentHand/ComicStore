@@ -2,84 +2,65 @@ import os
 import json
 import stripe
 from django.shortcuts import render
+from django.db.models import Avg, Max, Min, Sum
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
+from comics.models.profile_models import complete_comic, order, profile
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 #this is looping through all the comics in comics.json, creating each one as an object called complete_comic and appending them into a list called all_comics.
 class ComicsView(TemplateView):
     template_name = '/src/profiles/templates/home.html'
 
-all_comics = []
-complete_comic = {}
-cart_comics = []
-total_price = 0
+# cart_comics = []
+# total_price = 0
 
 
 def parseComics(request):
-
-    try:
-        with open("../comics.json", "r") as files:
-            comic_data = json.load(files)
-            comics = comic_data["results"]
-            for comic in comics:
-                complete_comic = {
-                    'comic_id':comic["id"],
-                    'comic_title':comic["title"],
-                    'description':comic["description"],
-                    'price':round(comic["prices"][0]["price"],2),
-                    'comic_cover':comic["thumbnail"]["path"] + "." + comic["thumbnail"]["extension"]
-                }
-                all_comics.append(complete_comic)
-                # print("ALL COMICS:  ", all_comics)
-
-    except: 
-        print("HAPPPPPPYYPYPPPYY") 
-
+    all_comics = complete_comic.objects.all()
+    
     return render(request, '../templates/home.html', {'all_comics':all_comics})
 
+@login_required
 def add_to_cart(request, comic_id):
-    for comic in all_comics:
-        # print("COMIC: ", comic)
-        if int(comic['comic_id']) == int(comic_id):
-            total_price = calculate_price(request, comic['price'])
-            cart_comics.append(comic)
-            break
+    comic_to_add = complete_comic.objects.get(id=comic_id)
+    try:
+        user_order = order.objects.get(user__user=request.user.id)
+        user_order.comics.add(comic_to_add)
 
-    context = {'cart_comics':cart_comics, 'total_price':total_price}
-    template = 'checkout.html'
+    except:
+        user = profile.objects.get(user=request.user.id)
+        user_order = order.objects.create(user=user)
+        user_order.comics.add(comic_to_add)
+
+    # context = {'cart_comics':cart_comics, 'total_price':total_price}
+    # template = 'checkout.html'
     return HttpResponseRedirect('/checkout/')
 
-def calculate_price(request, comic_price):
-    global total_price
-    print("!!!!!!COMIC PRICE", comic_price)
-    total_price += comic_price
-    print("!!!!TOTAL PRICE", total_price)
-    return total_price
-
-def lower_price(request, comic_price):
-    global total_price
-    print("!!!!!!COMIC PRICE", comic_price)
-    total_price -= comic_price
-    print("!!!!TOTAL PRICE", total_price)
-    return total_price
-
 def remove_from_cart(request, comic_id):
-    for comic in all_comics:
-        # print("COMIC: ", comic)
-        if int(comic['comic_id']) == int(comic_id):
-            total_price = lower_price(request, comic['price'])
-            cart_comics.remove(comic)
-            break
 
-    context = {'cart_comics':cart_comics, 'total_price':total_price}
-    template = 'checkout.html'
+    comic_to_remove = complete_comic.objects.get(id=comic_id)
+    try:
+        user_order = order.objects.get(user__user=request.user.id)
+        user_order.comics.remove(comic_to_remove)
+
+    except:
+        user = profile.objects.get(user=request.user.id)
+        user_order = order.objects.create(user=user)
+        user_order.comics.remove(comic_to_remove)
     return HttpResponseRedirect('/checkout/')
 
 @login_required 
 def checkout(request):
+
+    current_order = order.objects.get(user__user=request.user.id)
+    comics = current_order.comics.all()
+    comic_price_sum = current_order.comics.aggregate(Sum('price')).get('price__sum', 0.00)
+    total_price = comic_price_sum
+
 
     publishKey = settings.STRIPE_PUBLISHABLE_KEY
     customer_id = request.user.userstripe.stripe_id
@@ -101,7 +82,7 @@ def checkout(request):
         except stripe.error.CardError as e:
             #The card has been declined
             pass
-    context = {'publishKey':publishKey, 'cart_comics':cart_comics,'total_price':total_price}
+    context = {'publishKey':publishKey, 'current_order':current_order, 'comics':comics,'total_price':total_price}
     template = 'checkout.html'
     return render(request, template, context)
 

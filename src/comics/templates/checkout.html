@@ -49,14 +49,14 @@ $(function() {
 
     <div class="row">
           <h2 class="main-text"><a href="{% url 'home' %}">Add more comics!</a> </h2>
-          {% for comic in cart_comics %}
+          {% for comic in comics %}
             <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
               <p>{{comic.comic_id}}</p>
               <img src="{{comic.comic_cover}}" class="thumbimg">
               <p>{{comic.comic_title}}</p>
               <p>{{comic.description}}</p>
               <p>${{comic.price}}</p>
-              <p><a class="btn btn-default" href="{% url 'remove_comic' comic.comic_id %}" role="button">REMOVE FROM CART »</a></p>
+              <p><a class="btn btn-default" href="{% url 'remove_comic' comic.id %}" role="button">REMOVE FROM CART »</a></p>
             </div>
           {% endfor %}
     </div>
