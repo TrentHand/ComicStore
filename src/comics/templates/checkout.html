@@ -56,7 +56,7 @@ $(function() {
               <p>{{comic.comic_title}}</p>
               <p>{{comic.description}}</p>
               <p>${{comic.price}}</p>
-
+              <p><a class="btn btn-default" href="{% url 'remove_comic' comic.comic_id %}" role="button">REMOVE FROM CART »</a></p>
             </div>
           {% endfor %}
     </div>
@@ -91,7 +91,7 @@ $(function() {
       </div>
 
 
-      <input class='btn btn-success' type="submit" class="submit" value="Submit Payment">
+      <input class='btn btn-success' type="submit" class="submit" value="Submit Payment"href="{% url 'checkout' %}">
     </form>
   </div>
 </div> 

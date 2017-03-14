@@ -59,6 +59,25 @@ def calculate_price(request, comic_price):
     print("!!!!TOTAL PRICE", total_price)
     return total_price
 
+def lower_price(request, comic_price):
+    global total_price
+    print("!!!!!!COMIC PRICE", comic_price)
+    total_price -= comic_price
+    print("!!!!TOTAL PRICE", total_price)
+    return total_price
+
+def remove_from_cart(request, comic_id):
+    for comic in all_comics:
+        # print("COMIC: ", comic)
+        if int(comic['comic_id']) == int(comic_id):
+            total_price = lower_price(request, comic['price'])
+            cart_comics.remove(comic)
+            break
+
+    context = {'cart_comics':cart_comics, 'total_price':total_price}
+    template = 'checkout.html'
+    return HttpResponseRedirect('/checkout/')
+
 @login_required 
 def checkout(request):
 
