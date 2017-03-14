@@ -35,3 +35,8 @@
 .main-text a {
     color: red;
 }
+
+.wrapper {
+    background-color: black;
+    opacity: .7;
+}

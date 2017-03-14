@@ -48,12 +48,12 @@ $(function() {
 {% block content %}
 
     <div class="row">
-          <h2 class="main-text"><a href="{% url 'home' %}">Add more comics!</a> </h2>
+          <h2 class="main-text"><button><a href="{% url 'home' %}">Add more comics!</a></button> </h2>
           {% for comic in comics %}
             <div class="card card-cascade comicCard col-md-3 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
-              <p>{{comic.comic_id}}</p>
-              <img src="{{comic.comic_cover}}" class="thumbimg">
+              {# <p>{{comic.comic_id}}</p> #}
               <p>{{comic.comic_title}}</p>
+              <img src="{{comic.comic_cover}}" class="thumbimg">
               <p>{{comic.description}}</p>
               <p>${{comic.price}}</p>
               <p><a class="btn btn-default" href="{% url 'remove_comic' comic.id %}" role="button">REMOVE FROM CART »</a></p>
@@ -61,7 +61,7 @@ $(function() {
           {% endfor %}
     </div>
 
-<div class='row'>
+<div class='row wrapper'>
   <div class='col-sm-6 col-sm-offset-3'>
   <h3 class="main-text">Total Due:  ${{ total_price }} </h3>
     <form class='form' action="{% url 'success' %}" method="POST" id="payment-form"> {% csrf_token %}
